@@ -13,6 +13,7 @@ from random import randint
 from typing import Iterator
 
 from settings import SPECS, AlignmentChoice, ALIGNMENT
+from utils import check_file_folder
 
 
 def get_random_string(max_length: int, nullable=False) -> str:
@@ -63,9 +64,7 @@ def get_header() -> str:
 
 def generate_txt(txt_path, line_count: int) -> str:
     """generate fixed width file according to config and return the csv path"""
-    if os.path.exists(txt_path):
-        os.remove(txt_path)
-        logging.info(f"Found old fixed width file {txt_path} and removed.")
+    check_file_folder(txt_path)
 
     with open(txt_path, "w", encoding=SPECS["FixedWidthEncoding"]) as file:
         # write row

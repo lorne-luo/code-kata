@@ -15,6 +15,7 @@ import csv
 import logging
 
 from settings import SPECS, DELIMITER
+from utils import check_file_folder
 
 
 def parse_line(line: str) -> list[str]:
@@ -32,6 +33,7 @@ def parse_line(line: str) -> list[str]:
 def parse_txt(txt_path: str, csv_path: str) -> str:
     """parse the fixed width file line by line and save into csv"""
     # open both fixed width txt file and the target csv
+    check_file_folder(csv_path)
 
     try:
         with open(txt_path, "r", encoding=SPECS["FixedWidthEncoding"]) as txt_file, \
