@@ -12,7 +12,7 @@ import secrets
 from random import randint
 from typing import Iterator
 
-from settings import SPECS, AlignmentChoice, ALIGNMENT
+from settings import ALIGNMENT, SPECS, AlignmentChoice
 from utils import check_file_folder
 
 
@@ -70,4 +70,6 @@ def generate_txt(txt_path, line_count: int) -> str:
         # write row
         for line in gen_fix_width_line(line_count):
             file.write(line + "\n")
+
+    logging.info(f"Fixed width txt file generated at {os.path.abspath(txt_path)}")
     return txt_path

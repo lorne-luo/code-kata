@@ -13,8 +13,9 @@ f1,f2,f3
 
 import csv
 import logging
+import os
 
-from settings import SPECS, DELIMITER
+from settings import DELIMITER, SPECS
 from utils import check_file_folder
 
 
@@ -50,4 +51,7 @@ def parse_txt(txt_path: str, csv_path: str) -> str:
                 csv_writer.writerow(row)
     except FileNotFoundError:
         logging.exception(f"txt file {txt_path} not exist")
+
+    logging.info(f"Fixed width txt file generated at {os.path.abspath(txt_path)}")
+
     return csv_path

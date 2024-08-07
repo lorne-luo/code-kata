@@ -1,7 +1,8 @@
 import pytest
 
-from generator import format_to_width, get_header, gen_fix_width_line, get_random_string
-from settings import CONFIG_PATH, get_config, AlignmentChoice
+from generator import (format_to_width, gen_fix_width_line, get_header,
+                       get_random_string)
+from settings import CONFIG_PATH, AlignmentChoice, get_config
 
 
 def test_config() -> None:
