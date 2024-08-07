@@ -1,0 +1,7 @@
+black==24.8.0
+click==8.1.7
+faker==26.2.0
+isort==5.13.2
+bandit==1.7.9
+orjson==3.10.6
+pytest==8.3.2
