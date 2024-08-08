@@ -63,6 +63,7 @@ def generate_sub_csv(size_mb: int) -> str:
 
 
 def merge_csv(merged_csv_path: str, sub_csv_paths: list[str]) -> str:
+    """merge the temp csv files creted by multi-processing"""
     logging.info(f"Mergeing into {merged_csv_path}")
 
     line_count = 0
@@ -92,22 +93,24 @@ def merge_csv(merged_csv_path: str, sub_csv_paths: list[str]) -> str:
 
 @timing
 def generate_csv(csv_path: str, size_mb: int) -> str:
+    """generate a csv with random content in the given mb size"""
     core_count = os.cpu_count()
     if not core_count:
         core_count = 1
     mb_per_core = size_mb / core_count
 
-    print(f"core_count={core_count}, mb_per_core={mb_per_core}")
+    # each core may take mb_per_core's task
+    logging.info(f"core_count={core_count}, mb_per_core={mb_per_core}")
+
+    # leverage ray's multi-processing
+    # it can also can be done in distributed cluster with no code change
+    # check ray's docs here https://docs.ray.io/en/latest/ray-more-libs/multiprocessing.html#run-on-a-cluster
+
     pool = Pool(core_count)
     sub_csv_paths = pool.map(generate_sub_csv, [mb_per_core] * core_count)
+
+    # merge tmp csv into one file
     merged_csv_path = merge_csv(csv_path, sub_csv_paths)
 
     abs_path = os.path.abspath(merged_csv_path)
-    print(abs_path)
     return abs_path
-
-
-if __name__ == "__main__":
-    csv_size_mb = 256  # 2GB = 2048 MB
-    generate_csv("generated.csv", csv_size_mb)
-    # generate_sub_csv(256)

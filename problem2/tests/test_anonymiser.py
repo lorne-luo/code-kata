@@ -1,8 +1,14 @@
 import os
 from tempfile import NamedTemporaryFile
 
-from anonymiser import anonymise
+from anonymiser import anonymise, mask_text
 from generator import generate_sub_csv
+
+
+def test_mask_text():
+    """test add mask for text"""
+    masked_name = mask_text("Firstname")
+    assert masked_name == "F********", f"mask text expect F********, got {masked_name}"
 
 
 def test_anonymise():

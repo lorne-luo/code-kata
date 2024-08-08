@@ -27,6 +27,12 @@ jobs:
         id: build-problem1
         with:
           repository: ghcr.io/lorne-luo/code_kata
-          stages: base
+          stages: base, problem1, problem2
           server-stage: problem1
 
+      - uses: firehed/multistage-docker-build-action@v1
+        id: build-problem2
+        with:
+          repository: ghcr.io/lorne-luo/code_kata
+          stages: base, problem2
+          server-stage: problem2

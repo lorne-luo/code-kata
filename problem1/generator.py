@@ -30,8 +30,8 @@ def format_to_width(text: str, width: int, alignment=ALIGNMENT) -> str:
     assert width >= 0, f"width {width} should large than 0"
     assert len(text) <= width, f"{text} text length should shorter than width={width}"
 
-    tmpl = f"{{0: <{width}}}" if alignment == AlignmentChoice.Left else f"{{0: >{width}}}"
-    return tmpl.format(text)
+    value = text.ljust(width) if alignment == AlignmentChoice.Left else text.rjust(width)
+    return value
 
 
 def generate_cell(width: int) -> str:
